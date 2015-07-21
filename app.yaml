@@ -1,0 +1,31 @@
+application: project-gabriel
+version: 1
+runtime: python27
+threadsafe: true
+api_version: 1
+
+handlers:
+# Static assets
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+- url: /js
+  static_dir: static/js
+- url: /css
+  static_dir: static/css
+- url: /images
+  static_dir: static/images
+- url: /
+  static_files: templates/index.html
+  upload: templates/index\.html
+  secure: always
+
+# Endpoints handler: Must be /_ah/spi. Apps send requests to /_ah/api, but these are handled at /_ah/spi!!
+- url: /_ah/spi/.*
+  script: gabriel_api.APPLICATION
+
+libraries:
+- name: pycrypto
+  version: latest
+- name: endpoints
+  version: 1.0
